@@ -5,6 +5,7 @@ class Vertex{
     constructor(index, nextVertices){
         this.index = index
         this.visited = false
+        this.completed = false
         this.nextVertices = nextVertices
     }
 }
@@ -21,7 +22,6 @@ export default class Graph{
             this.listRepr = V
             this.reset()
         }
-
     }
     reset(){
         this.V = []
@@ -29,13 +29,18 @@ export default class Graph{
             this.V.push(new Vertex(i, this.listRepr[i]))
         }
         this.n = this.V.length
-        this.currentVertex = this.n ? this.V[0] : null
         this.vStack = []
+        for(let i=this.V.length-1; i>=0; i--){
+            this.vStack.push(this.V[i])
+        }
+        this.currentVertex = this.vStack.pop()
     }
     dfsVisit(){
         if(!this.currentVertex){
-            this.reset()
-            return
+            if(this.vStack.length===0){
+                this.reset()
+                return
+            }
         }
         this.currentVertex.visited = true
         for(let i=0; i<this.currentVertex.nextVertices.length; i++){
@@ -46,7 +51,10 @@ export default class Graph{
             }       
         } 
         // Leaf
-        this.currentVertex = this.vStack.pop()
+        this.currentVertex.completed = true
+        while(this.currentVertex.completed===true){
+            this.currentVertex = this.vStack.pop()
+        }
     }
     detectCycles(startingVertex){
         this.visited = new Array(this.n).fill(false)
@@ -55,7 +63,6 @@ export default class Graph{
         let time = 0
         function visit(vertexNumber){
             this.visited[vertexNumber] = true
-
         }
         visit(startingVertex)
     }

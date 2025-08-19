@@ -23,7 +23,7 @@ function App() {
     <div className="app">
       <div className="control-container">
         <button onMouseDown={()=>{setGraph(prevGraph=>{prevGraph.dfsVisit(); return new ListGraph(prevGraph)})}}>
-          Detect Cycles
+          DFS
         </button>
       </div>
       <div 
@@ -37,7 +37,6 @@ function App() {
             <div id={`vertex${uIndex}Wrapper`}
                   style={{
                     position: "absolute",
-                    // transform: `translate(${200 * Math.cos(angle)}px, ${200 * Math.sin(angle)}px)`
                     left: (window.innerWidth / 2) + 200 * Math.cos(angle),
                     top: (window.innerHeight / 2) + 200 * Math.sin(angle)
                   }}
@@ -46,6 +45,7 @@ function App() {
               id={`vertex${uIndex}`}
               vertexId={uIndex}
               visited={graph.V[uIndex].visited}
+              completed={graph.V[uIndex].completed}
               isCurrentVertex={graph.currentVertex?.index===uIndex}
               />
             </div>
@@ -54,6 +54,20 @@ function App() {
       </div>
       {/******************** Draw Edges ********************/}
       <svg className="edge-container" >
+        <defs>
+          {/* Arrowhead definition */}
+          <marker
+            id="arrow"
+            markerWidth="10"
+            markerHeight="10"
+            refX="5"
+            refY="5"
+            orient="auto"
+            markerUnits="strokeWidth"
+          >
+            <path d="M0,0 L10,5 L0,10 Z" fill="red" />
+          </marker>
+        </defs>
         {graph.V.map((u, uIndex) => {
           return <g>
             {graph.V[uIndex].nextVertices.map((v, vIndex) => {

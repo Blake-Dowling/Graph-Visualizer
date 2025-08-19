@@ -4,7 +4,7 @@ import './Vertex.css'
 export default function Vertex(props) {
   const [backgroundColor, setBackgroundColor] = useState("white")
   useEffect(() => {
-    let newBackgroundColor = props.isCurrentVertex ? "yellow" : props.visited ? "grey" : "white"
+    let newBackgroundColor = props.isCurrentVertex ? "yellow" : props.completed ? "black" : props.visited ? "grey" : "white"
     setBackgroundColor(newBackgroundColor)
   }, [props.isCurrentVertex, props.visited, props.cur])
   
