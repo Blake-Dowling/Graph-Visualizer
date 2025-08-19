@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './Vertex.css'
 
 export default function Vertex(props) {
-    let backgroundColor = props.visited ? "grey" : "white"
+  const [backgroundColor, setBackgroundColor] = useState("white")
+  useEffect(() => {
+    let newBackgroundColor = props.isCurrentVertex ? "yellow" : props.visited ? "grey" : "white"
+    setBackgroundColor(newBackgroundColor)
+  }, [props.isCurrentVertex, props.visited, props.cur])
+  
 
   return (
     <div 

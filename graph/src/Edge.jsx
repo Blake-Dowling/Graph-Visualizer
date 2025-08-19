@@ -2,7 +2,6 @@ import React from 'react'
 import './Edge.css'
 
 export default function Edge(props) {
-    console.log(props)
   return (
     <g>
       <line

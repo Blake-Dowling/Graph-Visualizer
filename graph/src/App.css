@@ -4,30 +4,32 @@
   padding: 2rem;
   text-align: center;
 }
-
-
-
 .app{
-  display: flex vertical;
-  /* border: 2px solid lime; */
+  /* display: flex horizontal; */
   position: relative;
   width: 100%;
   height: 100%;
 }
-.vertex-container{
+.control-container{
+  display: flex;
   position: absolute;
-  /* display: flex vertical; */
-  border: solid blue 2px; 
-  min-width: 100vw;
-  min-height: 100vh;
-  top: -50vh;
+  /* border: 2px red solid; */
   left: -50vw;
 }
-.edge-container{
-  border: 2px solid yellow;
+.vertex-container{
+  /* border: 2px solid blue; */
+  z-index: -1;
   position: absolute;
   min-width: 100vw;
   min-height: 100vh;
-  top: -50vh;
   left: -50vw;
+  top: -50vh;
+}
+.edge-container{
+  z-index: -1;
+  position: absolute;
+  min-width: 100vw;
+  min-height: 100vh;
+  left: -50vw;
+  top: -50vh;
 }

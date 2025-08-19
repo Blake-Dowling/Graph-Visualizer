@@ -21,9 +21,15 @@ function App() {
 
   return (
     <div className="app">
+      <div className="control-container">
+        <button onMouseDown={()=>{setGraph(prevGraph=>{prevGraph.dfsVisit(); return new ListGraph(prevGraph)})}}>
+          Detect Cycles
+        </button>
+      </div>
       <div 
         className="vertex-container"
       >
+        {/******************** Draw Vertices ********************/}
         {graph.V.map((u, uIndex) => {
             // console.log(u, idx, graph.visited[idx])
             const angle = 2 * Math.PI * (uIndex / graph.n)
@@ -39,17 +45,18 @@ function App() {
               <Vertex
               id={`vertex${uIndex}`}
               vertexId={uIndex}
-              visited={graph.visited[uIndex]}
+              visited={graph.V[uIndex].visited}
+              isCurrentVertex={graph.currentVertex?.index===uIndex}
               />
             </div>
             )
         })}
       </div>
+      {/******************** Draw Edges ********************/}
       <svg className="edge-container" >
         {graph.V.map((u, uIndex) => {
-          console.log(vertexCenters[uIndex]?.x)
           return <g>
-            {graph.V[uIndex].map((v, vIndex) => {
+            {graph.V[uIndex].nextVertices.map((v, vIndex) => {
                 return <Edge
                   start={vertexCenters[uIndex]}
                   end={vertexCenters[v]}
