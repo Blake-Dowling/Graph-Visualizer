@@ -11,7 +11,7 @@
   height: 100%;
 }
 .control-container{
-  display: flex;
+  display: flex vertical;
   position: absolute;
   /* border: 2px red solid; */
   left: -50vw;

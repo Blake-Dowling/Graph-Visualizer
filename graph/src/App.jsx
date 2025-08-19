@@ -4,11 +4,15 @@ import './App.css'
 import Vertex from './Vertex'
 import Edge from './Edge'
 import ListGraph from './ListGraph'
+import ListRepr from './ListRepr'
 
 function App() {
-  const [graph, setGraph] = useState(new ListGraph([[1, 2], [2, 3], [], [0, 2]]))
+  const [graph, setGraph] = useState(new ListGraph([[]]))
   const [vertexCenters, setVertexCenters] = useState([])
-
+  const [listRepr, setListRepr] = useState([[1, 2], [2, 3], [], [0, 2], []])
+  useEffect(() => {
+    setGraph(new ListGraph(listRepr))
+  }, [listRepr])
   useEffect(() => {
     let centers = new Array(graph?.n).fill({x: null, y: null})
     for(let i=0; i<graph?.V?.length; i++){
@@ -22,6 +26,10 @@ function App() {
   return (
     <div className="app">
       <div className="control-container">
+        <ListRepr
+          listRepr={listRepr}
+          setListRepr={setListRepr}
+        />
         <button onMouseDown={()=>{setGraph(prevGraph=>{prevGraph.dfsVisit(); return new ListGraph(prevGraph)})}}>
           DFS
         </button>
